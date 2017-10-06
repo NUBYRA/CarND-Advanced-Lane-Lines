@@ -63,11 +63,11 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-The warped image is sliced into a set of 10 windows and search for the lane lines in these windows.
+See Cell # 17 in `P4.ipynb`
 
-However, before moving any further we need to find the starting point of the lane lines (at the bottom of the image). In this particular scenario we can compute a particular histogram of the image. This histogram will sum up the pixel values in the image and will help us in identify the starting point of the lines.
+To identify lane-lines need to decide explicitly which pixels are part of the lines and which belong to the left line and which belong to the right line. First take a histogram along all the columns in the lower half of the image. With this histogram, add up the pixel values along each column in the image. The two most prominent peaks in this histogram will be good indicators of the x-position of the base of the lane lines. This is used as a starting point for where to search for the lines. Then use a sliding window, placed around the line centers, to find and follow the lines up to the top of the frame and then fit a second order polynomial to find left and right predicted lines. 
 
-The figure below depicts the histogram computed on the lower half of the warped image depicted above.
+Below is a text image showing the identified lane-lines:
 
 ![alt text][image5]
 
