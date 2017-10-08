@@ -73,11 +73,17 @@ Below is a text image showing the identified lane-lines:
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+See Cell # 20. The method relies on the first and second order derivative of the polynominal function used to detect lane line pixes and defines the curve radius as follows:
+
+R = (1/|2A|) * (1 + (2Ay + B)^2)^3/2
+
+Assuming that the center of the image gives the position of the camera, consequently of the car, in python for an image, camera_position = image.shape[1]/2. The center of the lane is the difference between the predicted lane
+lines at a position closest to the car. Assuming the height of the image is 720 pixels and that the lane predictions are stored in right_x_predictions and left_x_predictions, then the center of the
+lane would be: lane_center = (right_x_predictions[719] + left_x_predictions[719])/2. Therefore offset of the car from the lane's center would be: center_offset_pixels = abs(camera_position - lane_center)
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+See Cell # 22, 23.  Here is an example of the result on a test image radius of curvature of the lane and the position of the vehicle with respect to center printed:
 
 ![alt text][image6]
 
@@ -89,7 +95,7 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 
 Below is the youtube linked test video:
 
-[![IMAGE ALT TEXT HERE](./test_images/youtube.jpg)](https://www.youtube.com/watch?v=xOqyqPQw3Mg)
+[![IMAGE ALT TEXT HERE](./output_images/youtube.jpg)](https://www.youtube.com/watch?v=teIZd_MW1WY)
 
 ---
 
@@ -97,5 +103,7 @@ Below is the youtube linked test video:
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+The pipeline works well for the first test video, however fails for the other two challange videos. I need to play with the threshold parameters such as color and gradient thresholding to imporve lane line detection. Also histogram normalization may also help. Also need to investigate ways to make the algorithm more robust, in terms of reliant on manual thresholding. 
+
+
 
